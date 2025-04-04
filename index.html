@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie Search & Player</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen p-6 font-sans">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold text-center mb-4"> Movie Search & Player</h1>
+      <div class="flex justify-center">
+        <input
+          type="text"
+          placeholder="Search for movies..."
+          class="w-full max-w-xl px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+          id="searchInput"
+        />
+      </div>
+    </header>
+
+    <!-- Movie Results Grid -->
+    <section id="movieGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
+      <!-- Example movie card -->
+      <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-200 cursor-pointer">
+        <img src="https://www.bing.com/ck/a?!&&p=b9839921bbff339c94d548052284d7df2d56deacdc1df92753c80f1cdc8e51f4JmltdHM9MTc0MzYzODQwMA&ptn=3&ver=2&hsh=4&fclid=34e0c6fc-4d45-64db-0ec5-d2244cc265a0&u=a1L2ltYWdlcy9zZWFyY2g_cT1tb3ZpZSUyMHBvc3RlcnMmRk9STT1JUUZSQkEmaWQ9MjVEMzAyMjE5NDg4MTU3NEVGMzM4NDUwMTM4MzJCMTBGRDBCOEY2Ng&ntb=1" alt="Movie Poster" class="w-full h-64 object-cover" />
+        <div class="p-4">
+          <h2 class="text-xl font-semibold mb-2">Movie Title</h2>
+          <p class="text-sm text-gray-400">Genre • Year</p>
+        </div>
+      </div>
+      <!-- More cards will be added dynamically -->
+    </section>
+
+    <!-- Video Player -->
+    <section class="bg-gray-800 rounded-xl p-6 shadow-lg">
+      <h2 class="text-2xl font-bold mb-4">Now Playing</h2>
+      <div class="aspect-video bg-black rounded-lg overflow-hidden">
+        <video id="videoPlayer" controls class="w-full h-full">
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
+<script>
+  // Example movie data
+  const movies = [
+    {
+      title: "Inception",
+      year: 2010,
+      genre: "Sci-Fi",
+      poster: "https://via.placeholder.com/300x450",
+      videoSrc: "https://www.w3schools.com/html/mov_bbb.mp4"
+    },
+    {
+      title: "The Dark Knight",
+      year: 2008,
+      genre: "Action",
+      poster: "https://via.placeholder.com/300x450",
+      videoSrc: "https://www.w3schools.com/html/mov_bbb.mp4"
+    },
+    // Add more movie objects here
+  ];
+
+  const searchInput = document.getElementById("searchInput");
+  const movieGrid = document.getElementById("movieGrid");
+  const videoPlayer = document.getElementById("videoPlayer");
+
+  // Function to display movies
+  function displayMovies(movies) {
+    movieGrid.innerHTML = ""; // Clear previous results
+    movies.forEach(movie => {
+      const movieCard = document.createElement("div");
+      movieCard.className = "bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-200 cursor-pointer";
+      movieCard.innerHTML = `
+        <img src="${movie.poster}" alt="${movie.title} Poster" class="w-full h-64 object-cover" />
+        <div class="p-4">
+          <h2 class="text-xl font-semibold mb-2">${movie.title}</h2>
+          <p class="text-sm text-gray-400">${movie.genre} • ${movie.year}</p>
+        </div>
+          `;
+          movieGrid.appendChild(movieCard);
+        });
+      }
